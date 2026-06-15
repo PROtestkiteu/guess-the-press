@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width, height=device-height, user-scalable=0"
+    />
+    <link rel="stylesheet" type="text/css" href="game.css" />
+    <title>Guess The Press</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <section class="screen screen-start is-active" id="start-screen">
+        <section class="startup-card">
+          <div class="startup-brand">
+            <div class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 96 96" role="img" focusable="false">
+                <path d="M18 20h60v6h6v8h4v22h-4v8h-6v6H58v4h4v8H50v8H38v-8H26v-8h4v-4H18v-6h-6v-8H8V34h4v-8h6z" fill="#2a184d"/>
+                <path d="M26 26h44v4h8v8h4v14h-4v8h-8v4H26v-4h-8v-8h-4V38h4v-8h8z" fill="#ffd43d"/>
+                <path d="M34 36h8v8h-8zm20 0h8v8h-8z" fill="#111111"/>
+                <path d="M30 52h6v4h4v4h16v-4h4v-4h6v6h-4v4h-4v4H38v-4h-4v-4h-4z" fill="#111111"/>
+                <path d="M42 68h12v8H42zm4 8h8v8h-8z" fill="#ffd43d"/>
+                <path d="M30 30h40v2H30zm0 34h40v2H30z" fill="#ffe980"/>
+              </svg>
+            </div>
+            <h1>Guess The <span>Press</span></h1>
+            <p class="startup-copy">Test yourself in Ecstasy themed puzzles.</p>
+          </div>
+
+          <section class="leaderboard-card leaderboard-card--startup">
+            <div class="card-head">
+              <span>High Scores</span>
+              <div class="leaderboard-scope-toggle">
+                <button class="scope-toggle is-selected" data-scope="all" data-scope-target="startup" type="button">All</button>
+                <button class="scope-toggle" data-scope="today" data-scope-target="startup" type="button">Today</button>
+              </div>
+            </div>
+            <div class="leaderboard-list" id="leaderboard-list"></div>
+          </section>
+
+          <section class="startup-actions">
+            <button class="mode-button mode-button--primary startup-play" id="play-button" type="button">Play Default (Mixed)</button>
+            <div class="mode-menu">
+              <div class="startup-mode-title">Modes</div>
+              <div class="mode-submenu" id="mode-submenu">
+                <button class="mode-option is-selected" data-select-mode="mixed" type="button">Default (Mixed)</button>
+                <button class="mode-option" data-select-mode="find_correct" type="button">Find the Correct Pill</button>
+                <button class="mode-option" data-select-mode="match_pairs" type="button">Match Pairs</button>
+                <button class="mode-option" data-select-mode="memory" type="button">Memory Game</button>
+                <button class="mode-option" data-select-mode="speed_round" type="button">Speed Round</button>
+                <button class="mode-option" data-select-mode="higher_lower" type="button">Higher or Lower</button>
+                <button class="mode-option" data-select-mode="broken_challenge" type="button">Broken Challenge</button>
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <section class="screen screen-game" id="game-screen">
+        <section class="viewer-panel">
+          <div class="viewer-stage">
+            <div class="viewer-topbar">
+              <div class="progress-track" id="progress-track">
+                <div class="progress-bar progress-bar--base" id="progress-bar"></div>
+                <div class="progress-bar progress-bar--bonus" id="progress-bonus"></div>
+              </div>
+              <div class="score-counter">
+                <span class="score-label">Score</span>
+                <span class="score-multiplier" id="score-multiplier">x1</span>
+                <strong id="score-value">0</strong>
+              </div>
+            </div>
+            <section class="question-panel">
+              <div class="result-strip" id="result-strip">Which one is the Mitsubishi?</div>
+            </section>
+            <div class="answers" id="answers"></div>
+            <div class="board-stage" id="board-stage"></div>
+            <div class="board-overlay" id="board-overlay" hidden></div>
+            <div class="board-hint" id="board-hint" hidden></div>
+            <div class="viewer-footer">
+              <div class="viewer-copy">
+                <button class="hud-button hud-button--menu" id="menu-button" type="button">← Back</button>
+              </div>
+              <div class="viewer-footer-right">
+                <div class="score-card score-card--timer" id="timer-card">
+                  <span class="score-label">Time</span>
+                  <strong id="timer-value">--</strong>
+                </div>
+                <button class="hud-button hud-button--report" id="report-error" type="button">Report error</button>
+              </div>
+            </div>
+            <div class="three-stage" id="three-stage" hidden>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="screen screen-finish" id="finish-screen">
+        <div class="finish-card">
+          <p class="eyebrow">Session Over</p>
+          <h2 id="finish-title">New High Score!</h2>
+          <div class="finish-score" id="finish-score">0</div>
+          <p class="finish-copy" id="finish-copy">Your score has been saved.</p>
+          <section class="leaderboard-card">
+            <div class="card-head">
+              <span>High Scores</span>
+              <div class="leaderboard-scope-toggle">
+                <button class="scope-toggle is-selected" data-scope="all" data-scope-target="finish" type="button">All</button>
+                <button class="scope-toggle" data-scope="today" data-scope-target="finish" type="button">Today</button>
+              </div>
+            </div>
+            <div class="leaderboard-list" id="finish-leaderboard-list"></div>
+          </section>
+          <button class="mode-button mode-button--primary" id="play-again" type="button">Play Again</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="dialog-backdrop" id="name-dialog-backdrop">
+      <form class="dialog-card" id="name-form">
+        <p class="eyebrow">Save Score</p>
+        <h3>Enter your name</h3>
+        <p class="dialog-copy">Your run ended. Save your score to the leaderboard.</p>
+        <input class="dialog-input" id="player-name" maxlength="20" placeholder="Your name" />
+        <div class="dialog-actions">
+          <button class="mode-button" id="skip-save" type="button">Skip</button>
+          <button class="mode-button mode-button--primary" type="submit">Save Score</button>
+        </div>
+      </form>
+    </div>
+
+    <script type="module" src="game.ts"></script>
+  </body>
+</html>

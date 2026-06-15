@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "name": "pill-id-the-game",
+  "version": "0.0.0",
+  "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "refresh:build-data": "node ./tools/generate_board_facts.mjs",
+    "build": "yarn refresh:build-data && vite build",
+    "dev": "yarn refresh:build-data && vite build --watch",
+    "type-check": "tsc --build",
+    "local:build": "yarn refresh:build-data && vite build --watch",
+    "local:serve": "LOCAL_STATIC_DIR=dist/client PORT=3131 HOST=127.0.0.1 node dist/server/index.cjs",
+    "local": "sh ./scripts/local-dev.sh"
+  },
+  "engines": {
+    "node": ">=22.2.0"
+  },
+  "dependencies": {
+    "@devvit/start": "0.13.3",
+    "@devvit/web": "0.13.3",
+    "@hono/node-server": "2.0.3",
+    "devvit": "0.13.3",
+    "hono": "4.12.21",
+    "three": "0.184.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.19",
+    "@types/three": "^0.184.1",
+    "typescript": "6.0.3",
+    "vite": "7.3.2"
+  }
+}
